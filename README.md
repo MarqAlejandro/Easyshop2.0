@@ -11,7 +11,8 @@
 
 ## Screenshots of output/progression
 
- ### This is a screenshot of the Home Screen menu 
+ ### This is a screenshot of the Home Screen menu with working Categories
+ ![HomeScreenw/CategoriesFixed](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/CategoriesFixed.png)
  
 
  ### This is a screenshot of the program adding  orders
