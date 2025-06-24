@@ -2,11 +2,16 @@
 
  ## Description
 
- This Application is a ___, that allows the user to ___.  
+ This Application Program Interface (API) is a connector program that bridges a back-end SQL database with a front-end HTML User Interface (UI),
+ that not only allows the user to browse a store's entire inventory, but also add products to an online cart and make a purchase.  
 
  ## Features
 
-  screens - Home, Order, Products, Check-out.
+ The UI storefront has many interactables for the users:
+ - a button for logging into an account
+ - a combo box for filtering through Categories
+ - 2 price sliders to filter by a price range
+ - a combo box to filter by color
 
 
 ## Screenshots of output/progression
