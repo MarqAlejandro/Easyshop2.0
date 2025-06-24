@@ -27,13 +27,17 @@
  Not only was the HTML displaying 2 "Minimum Price" sliders, but also the API wasn't using max price.
  ![before the fix](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/ErrorOfMinSliders.png)
 
- ### This is a screenshot of the price sliders after the fix.
+ ### The price sliders after the fix.
  I made sure the HTML reflected the proper labels, 
  and made sure that the logic would create a proper price range.
  ![after the fix](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/usageOfMin_MaxSliders2.png)
- ### This is a screenshot show.
  
-
+ ### This shows there's an Error with Admin Permissions
+ Some users have also noticed that some of the products seem to be duplicated.  
+For example, a laptop is listed 3 times, and it appears to be the same product, but there are slight differences.  
+It appears that instead of updating the product, each time you tried to update, it added a new product to the database. 
+ ![updates create new products](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/before%20bug%20fix.png)
+ 
  ### This is a screenshot of the program 
  
 
