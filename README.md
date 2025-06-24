@@ -40,7 +40,7 @@
  
  ### This screenshot shows post-fix to the Admin Update Permissions
  I inspected the Product-related classes and found that the update method was adding a new product instead of updating it.
- Now the update command will properly update a product as scene in the screenshot. 
+ Now the update command will properly update a product as scene in the screenshot, __(Specifically look at the right-most Tea Kettle product.)__
  ![post-fix](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/after%20bug%20fix.png)
  
 
