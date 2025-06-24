@@ -27,7 +27,7 @@
  Not only was the HTML displaying 2 "Minimum Price" sliders, but also the API wasn't using max price.
  ![before the fix](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/ErrorOfMinSliders.png)
 
- ### The price sliders after the fix.
+ ### The price sliders after the fix!
  I made sure the HTML reflected the proper labels, 
  and made sure that the logic would create a proper price range.
  ![after the fix](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/usageOfMin_MaxSliders2.png)
