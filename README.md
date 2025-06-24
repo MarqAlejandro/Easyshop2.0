@@ -32,16 +32,21 @@
  and made sure that the logic would create a proper price range.
  ![after the fix](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/usageOfMin_MaxSliders2.png)
  
- ### This shows there's an Error with Admin Permissions
+ ### This shows there's an Error with Admin Update Permissions
  Some users have also noticed that some of the products seem to be duplicated.  
-For example, a laptop is listed 3 times, and it appears to be the same product, but there are slight differences.  
-It appears that instead of updating the product, each time you tried to update, it added a new product to the database. 
+ For example, a laptop is listed 3 times, and it appears to be the same product, but there are slight differences.  
+ It appears that instead of updating the product, each time you tried to update, it added a new product to the database. 
  ![updates create new products](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/before%20bug%20fix.png)
  
- ### This is a screenshot of the program 
+ ### This screenshot shows post-fix to the Admin Update Permissions
+ I inspected the Product-related classes and found that the update method was adding a new product instead of updating it.
+ Now the update command will properly update a product as scene in the screenshot. 
+ ![post-fix](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/after%20bug%20fix.png)
  
 
- ### This is a screenshot of the 
+ ### Ran PostMan Script Test - All Pass
+ To verify that the API is working properly, I ran a series of postman scripts and tests that would prove that the code is working as intended. 
+ ![postmanTesting](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/postman-easyshop%20script%20all%20pass.png)
  
 
  ## My Favorite Block of Code(s)
