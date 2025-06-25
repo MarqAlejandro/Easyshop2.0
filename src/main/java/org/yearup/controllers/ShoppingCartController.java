@@ -11,7 +11,6 @@ import org.yearup.data.ShoppingCartDao;
 import org.yearup.data.UserDao;
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.User;
-
 import java.security.Principal;
 import java.util.Map;
 
