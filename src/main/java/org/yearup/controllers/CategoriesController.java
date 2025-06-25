@@ -15,10 +15,6 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-// add the annotations to make this a REST controller - done
-// add the annotation to make this controller the endpoint for the following url - done
-    // http://localhost:8080/categories
-// add annotation to allow cross site origin requests - done
 @RestController
 @RequestMapping("categories")
 @CrossOrigin
