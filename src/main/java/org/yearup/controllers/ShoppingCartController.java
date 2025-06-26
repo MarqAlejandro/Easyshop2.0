@@ -116,6 +116,7 @@ public class ShoppingCartController
 
     @DeleteMapping
     @PreAuthorize("hasRole('ROLE_USER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void clearCart(Principal principal, HttpServletResponse response) throws IOException {
         try {
             String username = principal.getName();
