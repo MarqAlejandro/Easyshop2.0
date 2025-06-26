@@ -17,8 +17,8 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
     }
 
     public void createOrder(Order order) {
-        String sql = "INSERT INTO orders (user_id, date, address, city, state, zip, shipping_amount, total_amount) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO orders (user_id, date, address, city, state, zip, shipping_amount) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -30,7 +30,6 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
             stmt.setString(5, order.getState());
             stmt.setString(6, order.getZip());
             stmt.setBigDecimal(7, order.getShippingAmount());
-            stmt.setBigDecimal(8, order.getTotalAmount());
 
             stmt.executeUpdate();
 
@@ -46,15 +45,17 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
     }
 
     public void addLineItem(OrderLineItem item) {
-        String sql = "INSERT INTO order_line_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO order_line_items (order_id, product_id, sales_price, quantity, discount) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, item.getOrderId());
             stmt.setInt(2, item.getProductId());
-            stmt.setInt(3, item.getQuantity());
-            stmt.setBigDecimal(4, item.getPrice());
+            stmt.setBigDecimal(3, item.getPrice());
+            stmt.setInt(4, item.getQuantity());
+            stmt.setBigDecimal(5, item.getDiscount());
 
             stmt.executeUpdate();
 

@@ -11,7 +11,7 @@ import org.yearup.models.Profile;
 import org.yearup.security.SecurityUtils;
 
 @RestController
-@RequestMapping("/profile")
+@RequestMapping("profile")
 @CrossOrigin
 public class ProfileController
 {
