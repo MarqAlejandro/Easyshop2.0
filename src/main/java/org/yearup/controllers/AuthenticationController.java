@@ -33,7 +33,8 @@ public class AuthenticationController {
     private UserDao userDao;
     private ProfileDao profileDao;
 
-    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao, ProfileDao profileDao) {
+    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder,
+                                    UserDao userDao, ProfileDao profileDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
