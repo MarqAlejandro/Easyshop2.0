@@ -3,8 +3,8 @@
  ## Description
 
  This Application Program Interface (API) is a connector program that bridges a back-end SQL database with a front-end HTML User Interface (UI),
- that not only allows the user to browse a store's entire inventory, but also add products to an online cart and make a purchase.
-__THIS API WORKS INTANDEM WITH CLIENT-WEB-APPLICATION-EASY-SHOP: [LINK TO CODE](https://github.com/MarqAlejandro/client-web-application-easy-shop)
+ that not only allows the user to browse a store's entire inventory, but also add products to an online cart and make a purchase.  
+__THIS API WORKS INTANDEM WITH CLIENT-WEB-APPLICATION-EASY-SHOP: [LINK TO CODE](https://github.com/MarqAlejandro/client-web-application-easy-shop)__
 
  ## Features
 
