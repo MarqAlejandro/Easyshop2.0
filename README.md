@@ -12,6 +12,7 @@
  - a combo box for filtering through Categories
  - 2 price sliders to filter by a price range
  - a combo box to filter by color
+ - 2 buttons for clearing cart and checking out 
 
 ## Screenshots of output/progression
 
@@ -49,7 +50,9 @@
  
 
  ## My Favorite Block of Code(s)
+[controller](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/fav%20code%201.png)
 
+[securityUtils](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/fav%20code%202.png)
  
 
  
