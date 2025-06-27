@@ -47,6 +47,8 @@
  ### Ran PostMan Script Test - All Pass
  To verify that the API is working properly, I ran a series of postman scripts and tests that would prove that the code is working as intended. 
  ![postmanTesting](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/postman-easyshop%20script%20all%20pass.png)
+
+ ![postmanTesting2](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/postman-easyshop-optional%20script%20-%20all%20pass.png)
  
 
  ## My Favorite Block of Code(s)
