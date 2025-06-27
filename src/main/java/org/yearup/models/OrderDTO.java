@@ -3,7 +3,7 @@ package org.yearup.models;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class OrderDTO {
+public class OrderDTO { //create
     private int orderId;
     private BigDecimal totalAmount;
     private BigDecimal shippingAmount;

@@ -10,14 +10,16 @@ import org.yearup.data.UserDao;
 import org.yearup.models.Profile;
 import org.yearup.security.SecurityUtils;
 
-@RestController
-@RequestMapping("profile")
-@CrossOrigin
+@RestController // Marks this class as a REST controller returning JSON responses
+@RequestMapping("profile") // Base route for all profile-related endpoints
+@CrossOrigin // Enables Cross-Origin Resource Sharing (for frontend/backend interaction)
 public class ProfileController
 {
+    // Dependencies for accessing profile and user data
     private final ProfileDao profileDao;
     private final UserDao userDao;
 
+    // Constructor-based dependency injection
     @Autowired
     public ProfileController(ProfileDao profileDao, UserDao userDao)
     {
@@ -25,26 +27,44 @@ public class ProfileController
         this.userDao = userDao;
     }
 
+    /**
+     * GET /profile
+     * Retrieves the profile information of the currently authenticated user.
+     *
+     * @return Profile object for the logged-in user
+     */
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')") // Restricts access to users or admins
     public Profile getProfile() {
+        // Get the current authenticated username
         String username = SecurityUtils.getCurrentUsername()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated"));
 
+        // Find the user ID using the username
         int userId = userDao.getIdByUsername(username);
+
+        // Retrieve and return the profile associated with the user ID
         return profileDao.getByUserId(userId);
     }
 
-    // PUT /profile
+    /**
+     * PUT /profile
+     * Updates the profile of the currently authenticated user.
+     *
+     * @param profile the new profile data sent in the request body
+     */
     @PutMapping
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')") // Restricts access to users or admins
     public void updateProfile(@RequestBody Profile profile)
     {
+        // Get the current authenticated username
         String username = SecurityUtils.getCurrentUsername()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated"));
 
+        // Find the user ID for the current user
         int userId = userDao.getIdByUsername(username);
 
+        // Update the profile data in the database
         profileDao.update(profile, userId);
     }
 }

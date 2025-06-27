@@ -2,7 +2,7 @@ package org.yearup.models;
 
 import java.math.BigDecimal;
 
-public class OrderLineItem {
+public class OrderLineItem { //create
     private int id;
     private int orderId;
     private int productId;

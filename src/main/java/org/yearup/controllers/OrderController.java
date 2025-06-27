@@ -17,50 +17,63 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("cart")
-@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-@CrossOrigin
+@RestController // Indicates this class is a REST controller returning JSON responses
+@RequestMapping("cart") // Base URL path for all endpoints in this controller
+@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')") // Only users with these roles can access the methods
+@CrossOrigin // Enables cross-origin requests (e.g. from frontend on a different port)
 public class OrderController {
-
+    // DAO dependencies for cart, order, user, and profile access
     private final ShoppingCartDao shoppingCartDao;
     private final OrderDao orderDao;
     private final UserDao userDao;
     private final ProfileDao profileDao;
 
+    // Constructor-based dependency injection
     @Autowired
     public OrderController(ShoppingCartDao shoppingCartDao,
                            OrderDao orderDao,
                            UserDao userDao,
-                           ProfileDao profileDao) { // <-- inject here
+                           ProfileDao profileDao) {
         this.shoppingCartDao = shoppingCartDao;
         this.orderDao = orderDao;
         this.userDao = userDao;
         this.profileDao = profileDao;
     }
 
+    /**
+     * POST /cart/checkout
+     * Performs checkout for the current user: creates order, line items, and clears the cart.
+     *
+     * @param principal Authenticated user's information
+     * @return ResponseEntity with created OrderDTO or error status
+     */
     @PostMapping("/checkout")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED) // Sets default response status to 201 Created
     public ResponseEntity<?> checkout(Principal principal) {
+        // Retrieve the authenticated user's username
         String username = principal.getName();
         User user = userDao.getByUserName(username);
-        Profile profile = profileDao.getByUserId(user.getId());
 
+        // Return 401 if the user is not found
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found.");
         }
 
-        // 1. Retrieve user's shopping cart
+        // Load the user's profile to get shipping address details
+        Profile profile = profileDao.getByUserId(user.getId());
+
+        // Get the user's shopping cart
         ShoppingCart cart = shoppingCartDao.getByUserId(user.getId());
 
+        // Return 400 if the cart is empty or null
         if (cart == null || cart.getItems().isEmpty()) {
             return ResponseEntity.badRequest().body("Shopping cart is empty.");
         }
 
-        // 2. Calculate total (already includes quantity and discount logic)
+        // Calculate the total cost of the items in the cart
         BigDecimal total = cart.getTotal();
 
-        // 3. Create and persist Order
+        // Create an Order object and populate its fields
         Order order = new Order();
         order.setUserId(user.getId());
         order.setOrderDate(LocalDateTime.now());
@@ -69,28 +82,29 @@ public class OrderController {
         order.setCity(profile.getCity());
         order.setState(profile.getState());
         order.setZip(profile.getZip());
-        order.setShippingAmount(new BigDecimal("5.99"));
+        order.setShippingAmount(new BigDecimal("5.99")); // Flat-rate shipping
 
-        orderDao.createOrder(order); // Order ID should now be set
+        // Save the order to the database (order ID is generated here)
+        orderDao.createOrder(order);
 
+        // Create line items based on cart contents
         List<OrderLineItem> orderItems = new ArrayList<>();
 
-        // 4. Create and persist OrderLineItems
         for (ShoppingCartItem item : cart.getItems().values()) {
             OrderLineItem lineItem = new OrderLineItem();
             lineItem.setOrderId(order.getId());
             lineItem.setProductId(item.getProductId());
             lineItem.setQuantity(item.getQuantity());
-            lineItem.setPrice(item.getProduct().getPrice()); // Storing per-unit price
-            lineItem.setDiscount(new BigDecimal("0.00"));
+            lineItem.setPrice(item.getProduct().getPrice()); // Per-unit price
+            lineItem.setDiscount(new BigDecimal("0.00")); // No discount applied
             orderDao.addLineItem(lineItem);
             orderItems.add(lineItem);
         }
 
-        // 5. Clear user's shopping cart
+        // Clear the shopping cart after the order is placed
         shoppingCartDao.clearCart(user.getId());
 
-        // Return a proper DTO
+        // Build and return the response DTO with order and line item details
         OrderDTO dto = new OrderDTO();
         dto.setOrderId(order.getId());
         dto.setTotalAmount(order.getTotalAmount());

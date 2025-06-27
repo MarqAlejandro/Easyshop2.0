@@ -3,7 +3,7 @@ package org.yearup.models;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Order {
+public class Order { //create
     private int id;
     private int userId;
     private LocalDateTime orderDate;

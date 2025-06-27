@@ -10,21 +10,17 @@ import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("categories")
-@CrossOrigin
+@RestController // Indicates this class handles REST API requests and returns JSON responses
+@RequestMapping("categories") // Base URL for all endpoints in this controller
+@CrossOrigin // Enables cross-origin requests (e.g., frontend running on a different port)
 public class CategoriesController
 {
     private final CategoryDao categoryDao;
     private final ProductDao productDao;
 
-
-    // create an Autowired controller to inject the categoryDao and ProductDao
+    // Constructor-based dependency injection
     @Autowired
     public CategoriesController(ProductDao productDao, CategoryDao categoryDao)
     {
@@ -32,10 +28,14 @@ public class CategoriesController
         this.categoryDao = categoryDao;
     }
 
-
-    // add the appropriate annotation for a get action
+    /**
+     * GET /categories
+     * Retrieves all categories.
+     *
+     * @return List of all categories
+     */
     @GetMapping("")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("permitAll()") // Open to all users, authenticated or not
     public List<Category> getAll()
     {
         try {
@@ -45,9 +45,15 @@ public class CategoriesController
         }
     }
 
-    // add the appropriate annotation for a get action
+    /**
+     * GET /categories/{id}
+     * Retrieves a single category by ID.
+     *
+     * @param id the category ID
+     * @return Category object
+     */
     @GetMapping("{id}")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("permitAll()") // Open to all users
     public Category getById(@PathVariable int id)
     {
         try {
@@ -59,16 +65,22 @@ public class CategoriesController
             return category;
         }
         catch (ResponseStatusException ex) {
-            throw ex;
+            throw ex; // Re-throw if it's already a status exception
         }
         catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
 
-    // the url to return all products in category 1 would look like this
-    // https://localhost:8080/categories/1/products
+    /**
+     * GET /categories/{categoryId}/products
+     * Retrieves all products under a given category.
+     *
+     * @param categoryId the ID of the category
+     * @return List of products
+     */
     @GetMapping("{categoryId}/products")
+    @PreAuthorize("permitAll()") // Open to all users
     public List<Product> getProductsById(@PathVariable int categoryId)
     {
         try {
@@ -78,11 +90,16 @@ public class CategoriesController
         }
     }
 
-    // add annotation to call this method for a POST action
-    // add annotation to ensure that only an ADMIN can call this function
+    /**
+     * POST /categories
+     * Creates a new category.
+     *
+     * @param category the category data from request body
+     * @return the created Category object
+     */
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // Restricted to admin users
+    @ResponseStatus(HttpStatus.CREATED) // Sets 201 Created response code
     public Category addCategory(@RequestBody Category category)
     {
         try {
@@ -90,13 +107,17 @@ public class CategoriesController
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
-
     }
 
-    // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
-    // add annotation to ensure that only an ADMIN can call this function
+    /**
+     * PUT /categories/{id}
+     * Updates an existing category by ID.
+     *
+     * @param id the ID of the category to update
+     * @param category updated category data from request body
+     */
     @PutMapping("{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // Admin only
     public void updateCategory(@PathVariable int id, @RequestBody Category category)
     {
         try {
@@ -106,12 +127,15 @@ public class CategoriesController
         }
     }
 
-
-    // add annotation to call this method for a DELETE action - the url path must include the categoryId
-    // add annotation to ensure that only an ADMIN can call this function
+    /**
+     * DELETE /categories/{id}
+     * Deletes a category by ID.
+     *
+     * @param id the ID of the category to delete
+     */
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // Admin only
+    @ResponseStatus(HttpStatus.NO_CONTENT) // Respond with 204 No Content if successful
     public void deleteCategory(@PathVariable int id)
     {
         try {
