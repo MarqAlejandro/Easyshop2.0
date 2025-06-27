@@ -50,9 +50,9 @@
  
 
  ## My Favorite Block of Code(s)
-[controller](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/fav%20code%201.png)
+![controller](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/fav%20code%201.png)
 
-[securityUtils](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/fav%20code%202.png)
+![securityUtils](https://github.com/MarqAlejandro/Easyshop2.0/blob/main/screenshots/fav%20code%202.png)
  
 
  
