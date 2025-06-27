@@ -18,8 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("orders")
+@RequestMapping("cart")
 @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+@CrossOrigin
 public class OrderController {
 
     private final ShoppingCartDao shoppingCartDao;
@@ -38,7 +39,7 @@ public class OrderController {
         this.profileDao = profileDao;
     }
 
-    @PostMapping
+    @PostMapping("/checkout")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> checkout(Principal principal) {
         String username = principal.getName();
